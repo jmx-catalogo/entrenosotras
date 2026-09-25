@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101012">
 
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Entre nosotras">
+
   <title>Entre nosotras</title>
   <meta
     name="description"
@@ -375,6 +378,11 @@ footer {
   opacity: 1;
 }
 
+@media (display-mode: standalone) {
+  #pantalla-completa {
+    display: none;
+  }
+}
 </style>
 </head>
 
