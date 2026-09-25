@@ -1,5 +1,5 @@
 window.CARD_LEVELS = [
-  { name: 'Percepción', eyebrow: 'Hay un universo en la forma en que te miro', cards: [
+  { name: 'Encuadre', eyebrow: 'Hay un universo en la forma en que te miro', cards: [
     '¿Qué impresión te di la primera vez que hablamos y qué detalle la provocó?',
     'Antes de conocerme bien, ¿qué imaginabas sobre mi vida?',
     '¿Qué creías que teníamos en común y después descubriste que era distinto?',
@@ -41,7 +41,7 @@ window.CARD_LEVELS = [
     'Completa: «Creo que te conozco bien cuando se trata de…, pero todavía me da curiosidad…».',
     'Cada quien diga una cosa que cree saber del otro, pero que nunca le ha preguntado. Compruébenla.'
   ]},
-  { name: 'Conexión', eyebrow: 'Las historias que nos trajeron hasta aquí', cards: [
+  { name: 'Revelación', eyebrow: 'Las historias que nos trajeron hasta aquí', cards: [
     '¿Qué detalle de tu vida actual te está dando una alegría que todavía no me has contado?',
     '¿Qué te emocionaba de pequeño y sigue despertando algo en ti?',
     '¿Cómo se demostraba el cariño en tu casa cuando crecías?',
@@ -123,7 +123,7 @@ window.CARD_LEVELS = [
     'Imaginen una semana sin obligaciones. Armen un plan que incluya algo importante para cada quien.',
     '¿Qué te gustaría conservar de nosotros aunque cambien nuestras circunstancias?'
   ]},
-  { name: 'Reflexión', eyebrow: 'En quiénes nos convertimos', cards: [
+  { name: 'Epílogo', eyebrow: 'En quiénes nos convertimos', cards: [
     '¿Qué partes de ti ves reflejadas en mí y qué te hace comprender eso sobre ti?',
     '¿Qué crees que me resulta fácil y que quizá no reconozco como una fortaleza?',
     '¿Qué has aprendido sobre ti al estar conmigo?',
