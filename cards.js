@@ -1,5 +1,5 @@
 window.CARD_LEVELS = [
-  { name: 'Encuadre', eyebrow: 'Hay un universo en la forma en que te miro', cards: [
+  { name: 'Apertura', eyebrow: 'Hay un universo en la forma en que te miro', cards: [
     '¿Qué impresión te di la primera vez que hablamos y qué detalle la provocó?',
     'Antes de conocerme bien, ¿qué imaginabas sobre mi vida?',
     '¿Qué creías que teníamos en común y después descubriste que era distinto?',
