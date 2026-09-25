@@ -355,7 +355,27 @@ footer {
   }
 }
 
-  </style>
+.pantalla-completa {
+  display: block;
+  width: 44px;
+  height: 44px;
+  margin: 12px 0 0 auto;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--papel);
+  font-size: 24px;
+  opacity: 0.55;
+  cursor: pointer;
+}
+
+.pantalla-completa:hover,
+.pantalla-completa:focus-visible {
+  opacity: 1;
+}
+
+</style>
 </head>
 
 <body>
@@ -368,6 +388,19 @@ footer {
 
   </div>
     </header>
+
+<button
+  class="pantalla-completa"
+  id="pantalla-completa"
+  type="button"
+  aria-label="Activar pantalla completa"
+  title="Pantalla completa"
+>
+  <span aria-hidden="true">⛶</span>
+</button>
+
+<p id="aviso-pantalla" class="nota" role="status" hidden></p>
+
 
     <main>
       <section class="introduccion">
@@ -615,4 +648,69 @@ footer {
     }
   </script>
 </body>
+
+<script>
+  const botonPantalla = document.querySelector("#pantalla-completa");
+  const avisoPantalla = document.querySelector("#aviso-pantalla");
+
+  function estaEnPantallaCompleta() {
+    return Boolean(
+      document.fullscreenElement ||
+      document.webkitFullscreenElement
+    );
+  }
+
+function actualizarBotonPantalla() {
+  const descripcion = estaEnPantallaCompleta()
+    ? "Salir de pantalla completa"
+    : "Activar pantalla completa";
+
+  botonPantalla.setAttribute("aria-label", descripcion);
+  botonPantalla.title = descripcion;
+}
+
+  botonPantalla.addEventListener("click", async () => {
+    avisoPantalla.hidden = true;
+
+    try {
+      if (estaEnPantallaCompleta()) {
+        const salir =
+          document.exitFullscreen ||
+          document.webkitExitFullscreen;
+
+        if (salir) await salir.call(document);
+      } else {
+        const pagina = document.documentElement;
+        const entrar =
+          pagina.requestFullscreen ||
+          pagina.webkitRequestFullscreen;
+
+        if (!entrar) {
+          throw new Error("Pantalla completa no disponible");
+        }
+
+        await entrar.call(pagina);
+      }
+
+      actualizarBotonPantalla();
+    } catch {
+      avisoPantalla.textContent =
+        "Este navegador no permite activar la pantalla completa. " +
+        "Prueba abrir el juego desde un acceso añadido a la pantalla de inicio.";
+      avisoPantalla.hidden = false;
+    }
+  });
+
+  document.addEventListener(
+    "fullscreenchange",
+    actualizarBotonPantalla
+  );
+
+  document.addEventListener(
+    "webkitfullscreenchange",
+    actualizarBotonPantalla
+  );
+  
+</script>
+
 </html>
