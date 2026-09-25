@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101012">
+
+  <title>Entre nosotras</title>
+  <meta
+    name="description"
+    content="150 tarjetas para seguir descubriéndonos."
+  >
+
+  <style>
+
+:root {
+  --fondo: #101012;
+  --papel: #F2F0EF;
+  --tinta: #211b1d;
+  --acento: #ed454b;
+  --borde: rgba(242, 238, 230, 0.25);
+  --rojo: #ae1828;
+  --rojo-oscuro: #650f1b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+  background: var(--fondo);
+  color: var(--papel);
+  font-family: system-ui, sans-serif;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+button:focus-visible {
+  outline: 3px solid var(--acento);
+  outline-offset: 5px;
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.contenedor {
+  width: min(100% - 36px, 900px);
+  margin: auto;
+  padding: 28px 0;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--rojo);
+}
+
+.marca {
+  font-family: Georgia, serif;
+  font-size: 1.4rem;
+}
+
+.detalle {
+  font-size: 0.85rem;
+  color: var(--acento);
+}
+
+.introduccion {
+  text-align: center;
+  padding: 42px 0 30px;
+}
+
+.etiqueta {
+  margin: 0 0 14px;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--acento);
+}
+
+h1 {
+  margin: 0;
+  font-family: Georgia, serif;
+  font-size: clamp(2.8rem, 8vw, 5rem);
+  font-weight: normal;
+  line-height: 1.08;
+}
+
+.subtitulo {
+  margin: 18px 0 0;
+  color: #d6ceca;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* SELECTOR DE NIVELES */
+
+.niveles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.nivel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  min-height: 112px;
+  padding: 20px;
+  border: 1px solid #554247;
+  border-radius: 16px;
+  background: #191719;
+  color: var(--papel);
+  text-align: left;
+}
+
+.nivel[aria-pressed="true"] {
+  background: var(--rojo);
+  border-color: var(--acento);
+  color: #ffffff;
+}
+
+.nivel small {
+  font-size: 0.8rem;
+}
+
+.nivel strong {
+  font-size: 1.05rem;
+}
+
+/* MESA Y TARJETA */
+
+.mesa {
+  padding: 10px 0;
+}
+
+.contexto {
+  display: none;
+}
+
+.tarjeta {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 360px;
+  padding: 28px 36px;
+  border: 1px solid #d0c5bd;
+  border-radius: 24px;
+  background: var(--papel);
+  color: var(--tinta);
+  text-align: center;
+
+  box-shadow:
+    0 14px 0 -6px var(--rojo),
+    0 28px 0 -12px var(--rojo-oscuro);
+}
+
+.tarjeta.animar {
+  animation: aparecer 220ms ease-out;
+}
+
+.cabecera-tarjeta {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  color: #83202b;
+  font-size: 0.85rem;
+}
+
+.pregunta {
+  max-width: 710px;
+  margin: 30px 0;
+  font-family: Georgia, serif;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: normal;
+  line-height: 1.35;
+  overflow-wrap: break-word;
+}
+
+.pie-tarjeta {
+  color: #83202b;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+}
+
+/* BOTONES */
+
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 38px;
+}
+
+.boton {
+  min-height: 50px;
+  padding: 14px 24px;
+  border: 1px solid #665156;
+  border-radius: 100px;
+  background: #191719;
+  color: var(--papel);
+  font-weight: 600;
+}
+
+.boton.principal {
+  background: var(--rojo);
+  border-color: var(--rojo);
+  color: #ffffff;
+}
+
+.nota {
+  margin: 22px auto 0;
+  max-width: 620px;
+  color: #d6ceca;
+  text-align: center;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.reiniciar {
+  display: block;
+  min-height: 44px;
+  margin: 24px auto 0;
+  padding: 12px;
+  border: 0;
+  background: transparent;
+  color: #d6ceca;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-size: 0.9rem;
+}
+
+footer {
+  margin-top: 36px;
+  color: var(--papel);
+  text-align: center;
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 1rem;
+}
+
+/* CORAZONES */
+
+.corazones-imagen {
+  display: block;
+  width: 200px;
+  max-width: 45%;
+  height: auto;
+  margin-left: auto;
+  image-rendering: pixelated;
+}
+
+@media (max-width: 540px) {
+  .corazones-imagen {
+    width: 150px;
+  }
+}
+
+/* ANIMACIÓN E INTERACCIONES */
+
+@keyframes aparecer {
+  from {
+    opacity: 0.4;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (hover: hover) {
+  .nivel:hover {
+    border-color: var(--acento);
+  }
+
+  .boton.principal:not(:disabled):hover {
+    background: #c52033;
+    border-color: #c52033;
+  }
+
+  .boton:not(.principal):not(:disabled):hover {
+    background: #302126;
+  }
+}
+
+/* PANTALLAS PEQUEÑAS */
+
+@media (max-width: 540px) {
+  .contenedor {
+    width: min(100% - 28px, 900px);
+    padding-top: 20px;
+  }
+
+  .introduccion {
+    padding: 32px 0 24px;
+  }
+
+  .niveles {
+    gap: 8px;
+  }
+
+  .nivel {
+    min-height: 94px;
+    padding: 14px 8px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .nivel strong {
+    font-size: 0.85rem;
+  }
+
+  .tarjeta {
+    min-height: 350px;
+    padding: 22px;
+  }
+
+  .boton {
+    padding: 14px 18px;
+  }
+
+  .detalle {
+    max-width: 100px;
+    text-align: right;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tarjeta.animar {
+    animation: none;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="contenedor">
+    <header>
+  <span class="marca">28|09|2026</span>
+
+  <div class="corazones" role="img" aria-label="Tres corazones llenos">
+    <img class="corazones-imagen" src="https://i.ibb.co/23qbrnHX/heartz-2.png" alt="heartz(1)" alt="">
+
+  </div>
+    </header>
+
+    <main>
+      <section class="introduccion">
+        <p class="etiqueta">JACK & ANDY</p>
+
+        <!-- CAMBIA AQUÍ EL TÍTULO Y EL SUBTÍTULO -->
+        <h1>Entre nosotras.</h1>
+      </section>
+
+      <nav class="niveles" aria-label="Elige un nivel">
+        <button
+          class="nivel"
+          data-nivel="0"
+          aria-pressed="true"
+          aria-controls="mesa"
+        >
+          <small>NIVEL 01</small>
+          <strong>Percepción</strong>
+          <small>40 tarjetas</small>
+        </button>
+
+        <button
+          class="nivel"
+          data-nivel="1"
+          aria-pressed="false"
+          aria-controls="mesa"
+        >
+          <small>NIVEL 02</small>
+          <strong>Conexión</strong>
+          <small>80 tarjetas</small>
+        </button>
+
+        <button
+          class="nivel"
+          data-nivel="2"
+          aria-pressed="false"
+          aria-controls="mesa"
+        >
+          <small>NIVEL 03</small>
+          <strong>Reflexión</strong>
+          <small>30 tarjetas</small>
+        </button>
+      </nav>
+
+      <section class="mesa" id="mesa" aria-label="Mesa de juego">
+        <p class="contexto" id="contexto"></p>
+
+        <article class="tarjeta" id="tarjeta">
+          <div class="cabecera-tarjeta">
+            <span id="nombre-nivel">Percepción</span>
+            <span id="contador"></span>
+          </div>
+
+          <h2 class="pregunta" id="pregunta" aria-live="polite">
+            Una tarjeta. Una conversación.
+          </h2>
+
+          <span class="pie-tarjeta">ENTRE NOSOTRAS</span>
+        </article>
+
+        <div class="acciones">
+          <button class="boton" id="anterior" disabled>
+            ← Anterior
+          </button>
+
+          <button class="boton principal" id="siguiente">
+            Sacar una tarjeta
+          </button>
+        </div>
+
+<!--
+<p class="nota">
+  Respondan en voz alta y tomen turnos.
+  Para pasar una tarjeta, pulsen «Siguiente».
+  Pueden cambiar de nivel cuando quieran.
+</p>
+-->
+
+        <button class="reiniciar" id="reiniciar">
+          Volver a mezclar este nivel
+        </button>
+
+        <p class="nota" id="error" role="alert" hidden></p>
+      </section>
+    </main>
+
+    <footer>No existen las respuestas perfectas</footer>
+
+    <noscript>
+      <p>Activa JavaScript en el navegador para jugar.</p>
+    </noscript>
+  </div>
+
+  <!-- LAS PREGUNTAS SE CARGAN DESDE EL OTRO ARCHIVO -->
+  <script src="./cards.js"></script>
+
+  <script>
+    const niveles = window.CARD_LEVELS;
+
+    const pregunta = document.querySelector("#pregunta");
+    const tarjeta = document.querySelector("#tarjeta");
+    const contador = document.querySelector("#contador");
+    const contexto = document.querySelector("#contexto");
+    const nombreNivel = document.querySelector("#nombre-nivel");
+
+    const anterior = document.querySelector("#anterior");
+    const siguiente = document.querySelector("#siguiente");
+    const reiniciar = document.querySelector("#reiniciar");
+    const botonesNivel = document.querySelectorAll("[data-nivel]");
+
+    if (!Array.isArray(niveles) || niveles.length !== 3) {
+      const error = document.querySelector("#error");
+      error.hidden = false;
+      error.textContent =
+        "No se encontraron las tarjetas. Revisa que cards.js esté " +
+        "en la misma carpeta que index.html.";
+
+      [anterior, siguiente, reiniciar, ...botonesNivel].forEach(
+        boton => boton.disabled = true
+      );
+    } else {
+      iniciarJuego();
+    }
+
+    function iniciarJuego() {
+      let nivelActual = 0;
+
+      // Cada nivel conserva su lugar mientras la página esté abierta.
+      const partidas = niveles.map(nivel => ({
+        orden: mezclar(nivel.cards),
+        posicion: -1
+      }));
+
+      function mezclar(tarjetas) {
+        const copia = [...tarjetas];
+
+        for (let i = copia.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [copia[i], copia[j]] = [copia[j], copia[i]];
+        }
+
+        return copia;
+      }
+
+      function mostrar() {
+        const nivel = niveles[nivelActual];
+        const partida = partidas[nivelActual];
+        const empezado = partida.posicion >= 0;
+        const ultima = partida.posicion === partida.orden.length - 1;
+
+        nombreNivel.textContent = nivel.name;
+        contexto.textContent = nivel.description;
+
+        contador.textContent = empezado
+          ? `${partida.posicion + 1} / ${partida.orden.length}`
+          : `${partida.orden.length} tarjetas`;
+
+        pregunta.textContent = empezado
+          ? partida.orden[partida.posicion]
+          : nivel.eyebrow + ".";
+
+        anterior.disabled = partida.posicion <= 0;
+        siguiente.disabled = false;
+
+        if (!empezado) {
+          siguiente.textContent = "Sacar una tarjeta";
+        } else if (ultima) {
+          siguiente.textContent = nivelActual < 2
+            ? "Ir al siguiente nivel"
+            : "Volver a jugar";
+        } else {
+          siguiente.textContent = "Siguiente →";
+        }
+
+        botonesNivel.forEach(boton => {
+          const activo = Number(boton.dataset.nivel) === nivelActual;
+          boton.setAttribute("aria-pressed", String(activo));
+        });
+
+        tarjeta.classList.remove("animar");
+        void tarjeta.offsetWidth;
+        tarjeta.classList.add("animar");
+      }
+
+      botonesNivel.forEach(boton => {
+        boton.addEventListener("click", () => {
+          nivelActual = Number(boton.dataset.nivel);
+          mostrar();
+        });
+      });
+
+      siguiente.addEventListener("click", () => {
+        const partida = partidas[nivelActual];
+
+        if (partida.posicion < partida.orden.length - 1) {
+          partida.posicion++;
+        } else if (nivelActual < 2) {
+          nivelActual++;
+        } else {
+          const confirmar = window.confirm(
+            "¿Empezar otra partida? Se mezclarán los tres niveles."
+          );
+
+          if (!confirmar) return;
+
+          niveles.forEach((nivel, i) => {
+            partidas[i] = {
+              orden: mezclar(nivel.cards),
+              posicion: -1
+            };
+          });
+
+          nivelActual = 0;
+        }
+
+        mostrar();
+      });
+
+      anterior.addEventListener("click", () => {
+        const partida = partidas[nivelActual];
+
+        if (partida.posicion > 0) {
+          partida.posicion--;
+          mostrar();
+        }
+      });
+
+      reiniciar.addEventListener("click", () => {
+        const confirmar = window.confirm(
+          "¿Mezclar este nivel desde el principio? Pueden volver a salir " +
+          "tarjetas que ya vieron."
+        );
+
+        if (!confirmar) return;
+
+        partidas[nivelActual] = {
+          orden: mezclar(niveles[nivelActual].cards),
+          posicion: -1
+        };
+
+        mostrar();
+      });
+
+      mostrar();
+    }
+  </script>
+</body>
+</html>
